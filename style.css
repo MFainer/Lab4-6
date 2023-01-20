@@ -1,0 +1,39 @@
+header{
+    text-align: center;
+    background-color: wheat;
+}
+
+label{
+    display: block;
+}
+
+.quiz{
+    width: 600px;
+}
+
+.quiz-questions{
+    margin-top: 20px;
+
+}
+
+.dropbox{
+    height: 50px;
+    width: 200px;
+    border: solid 1px black;
+}
+.dropbox-active{
+    border: dashed 1px cyan;
+}
+.dragtext-container {
+    border: solid 1px black;
+    height: 25px;
+    width: 150px;
+}
+
+.quiz-questions-item__answers{
+    list-style: none;
+}
+.quiz-questions-item__questions{
+    list-style: none;
+}
+
