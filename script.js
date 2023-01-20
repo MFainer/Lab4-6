@@ -161,6 +161,8 @@ function drop(e) {
     }
     draggable.classList.remove('hide');
 }
+
+
 addEventListener('click', (event) => {
     if (event.target.classList.contains('GetResults')){
         main();
@@ -221,7 +223,12 @@ addEventListener('click', (event) => {
     if (event.target.classList.contains('buttoncoppystudent')){
         copyStudent();
     }
-    
+    if (event.target.classList.contains('buttonprogress')){
+        PRclass.attempt = document.querySelector('.Attempts').value 
+        PRclass.test = document.querySelector('.NameTest').value
+        PRclass.showData();
+        getProgress()
+    }
     
 })
 
@@ -276,24 +283,54 @@ function StudentOBJ(speciality, group){
     }
 }
 
+
+
 var Progress = {
     ...StudentOBJ,
     test: '',
     attempt: 0,
     grades: [],
 
-    getAvarageGrade(){
-        let sum=0;
-        for(let i=0;i<this.grades.lenght;i++)
-            sum+=this.grades[i];
-        return sum/this.grades.lenght
+    getAvarageGrade: function() {
+        var sum = 0;
+        for (var i = 0; i < this.grades.length; i++) {
+            sum += this.grades[i];
+        }
+        return sum / this.grades.length;
     },
-
-    showData() {
+    
+    showData: function(){
         console.log('Specialty: ' + this.specialty + '\nGroup: ' + this.group + '\nTest: ' + this.test + '\nAttempt: ' + this.attempt  + '\nGrades: ' + this.grades + '\nAverage grade: ' + this.getAverageGrade());
-    } 
-
+    }
 }
+
+class ProgressClass{
+    constructor(test, attempt){
+        this.test = test;
+        this.attempt = attempt;
+    }
+
+    set settest(test){
+        this.test=test;
+    }
+
+    set setattempt(attempt){
+        this.attempt=attempt;
+    }
+    get gettest(){
+        return this.test;
+    }
+
+    get getattempt(){
+        return this.attempt;
+    }
+    showData(){
+        console.log(`TestName=${this.test}  Attempt=${this.attempt}`)
+    }
+}
+
+const PRclass = new ProgressClass();
+
 
 class StudentClass{
 
@@ -333,4 +370,13 @@ function copyStudent(){
 
 }
 
+function getProgress() {
+    Progress.test = PRclass.test
+    Progress.attempt = PRclass.attempt;
 
+    for(var i = 1; i <= Progress.attempt; i++) {
+        Progress.grades[i-1] = +prompt(`Введіть бал за ${i} спробу`);
+    }
+
+    document.querySelector('.getresultsgrade').value = Progress.getAvarageGrade()
+}
